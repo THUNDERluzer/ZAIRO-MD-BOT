@@ -32,8 +32,8 @@ async (conn, mek, m, { from, q, reply }) => {
         if (!q) {
             await conn.sendMessage(from, { audio: { url: voiceUrl }, mimetype: 'audio/mp4', ptt: true }, { quoted: mek });
             return;
-        }
-
+        },
+        else {
         const search = await yts(q);
         const data = search.videos[0];
         const url = data.url;
@@ -57,23 +57,26 @@ async (conn, mek, m, { from, q, reply }) => {
 
 🎼𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎`;
 
-cmd({
-    pattern: "audio",
+        
+                // Send video details with thumbnail
+        await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
+        },
+
+   cmd({
+    pattern: "song",
     react:"🎧",
     desc: "Download songs",
     category: "download",
     filename: __filename
-},
+}, 
 async (conn, mek, m, { from, q, reply }) => {
     try {
         if (!q) {
-                    // Send video details with thumbnail
-        await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
-
-        // Download and send audio
+                    // Download and send audio
         let down = await fg.yta(url);
         let downloadUrl = down.dl_url;
         await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
+        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
             return;
         }
 
@@ -83,19 +86,3 @@ async (conn, mek, m, { from, q, reply }) => {
         reply(`Error: ${e.message}`);
     }
 });
-
-
-
-        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
-
-    } catch (e) {
-        console.log(e);
-        reply(`Error: ${e.message}`);
-    }
-});
-
-
-
-
-
-
