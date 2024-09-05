@@ -60,11 +60,23 @@ async (conn, mek, m, { from, q, reply }) => {
         // Send video details with thumbnail
         await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
 
-        // Download and send audio
-        let down = await fg.yta(url);
-        let downloadUrl = down.dl_url;
-        await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
+        // Now wait for the reply
+        conn.ev.on('messages.upsert', async (msgUpdate) => {
+            const msg = msgUpdate.messages[0];
+
+            // Check if the reply is to the same message and if the reply contains "yes"
+            if (msg.message && msg.message.extendedTextMessage && 
+                msg.message.extendedTextMessage.contextInfo.stanzaId === mek.key.id && 
+                msg.message.extendedTextMessage.text.toLowerCase() === 'yes') {
+                
+                // If reply is "yes", start downloading
+                let down = await fg.yta(url);
+                let downloadUrl = down.dl_url;
+
+                await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
+                await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
+            }
+        });
 
     } catch (e) {
         console.log(e);
