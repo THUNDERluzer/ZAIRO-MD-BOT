@@ -5,6 +5,7 @@ const {runtime} = require('../lib/functions')
 
 cmd({
  pattern: "alive", 
+react: "📰",
 desc: "Check uptime, RAM usage, and more", category: "main", filename: __filename }, 
 
 
