@@ -16,7 +16,6 @@ cmd({
         const freeRAM = (totalRAM - parseFloat(usedRAM)).toFixed(2); // Free RAM in MB
 
         let status = `*✸𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℤ𝔸𝕀ℝ𝕆 𝕄𝔻 𝔹𝕆𝕋✸*
-*𝚃𝚛𝚢 𝚃𝚑𝚒𝚜 ⤵*
 
 
 
