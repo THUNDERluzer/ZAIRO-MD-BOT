@@ -6,6 +6,7 @@ const {runtime} = require('../lib/functions')
 cmd({
     pattern: "menu",
     alias: ["panel","penal","list","allmenu"],
+    react: "🪴",
     desc: "Check menu all",
     category: "main",
     filename: __filename
