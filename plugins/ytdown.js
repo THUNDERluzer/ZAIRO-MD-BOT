@@ -57,48 +57,38 @@ async (conn, mek, m, { from, q, reply }) => {
 
 🎼𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎`;
 
-        // Send video details with thumbnail
+async (conn, mek, m, { from, q, reply }) => {
+    try {
+    
+    cmd({
+    pattern: "audio",
+    react:"🎧",
+    desc: "Download songs",
+    category: "download1",
+    filename: __filename
+}, async (conn, mek, m, { from, q, reply }) => {
+    try {
+            // Send video details with thumbnail
         await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
 
-        // Add buttons for the user to confirm or cancel the download
-        const buttons = [
-            { buttonId: 'confirmDownload', buttonText: { displayText: 'Yes' }, type: 1 },
-            { buttonId: 'cancelDownload', buttonText: { displayText: 'No' }, type: 1 }
-        ];
-
-        const buttonMessage = {
-            contentText: 'Do you want to download the audio?',
-            footerText: 'Confirm Download',
-            buttons: buttons,
-            headerType: 1
+        // Download and send audio
+        let down = await fg.yta(url);
+        let downloadUrl = down.dl_url;
+        await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
+      }
         };
 
-        await conn.sendMessage(from, buttonMessage, { quoted: mek });
+    }
+        };
 
-        // Wait for button response to download audio
-        conn.ev.on('messages.upsert', async (message) => {
-            try {
-                const msg = message.messages[0];
 
-                if (msg.message && msg.message.buttonsResponseMessage) {
-                    const buttonId = msg.message.buttonsResponseMessage.selectedButtonId;
-
-                    if (buttonId === 'confirmDownload') {
-                        let down = await fg.yta(url);
-                        let downloadUrl = down.dl_url;
-                        await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-                        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
-                    } else if (buttonId === 'cancelDownload') {
-                        reply("Download cancelled.");
-                    }
-                }
-            } catch (error) {
-                console.error("Error in message handling: ", error.message);
-            }
-        });
+        
+        
+        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
 
     } catch (e) {
         console.log(e);
         reply(`Error: ${e.message}`);
     }
 });
+
