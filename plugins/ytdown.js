@@ -32,7 +32,7 @@ async (conn, mek, m, { from, q, reply }) => {
         if (!q) {
             await conn.sendMessage(from, { audio: { url: voiceUrl }, mimetype: 'audio/mp4', ptt: true }, { quoted: mek });
             return;
-        },
+        }
         else {
         const search = await yts(q);
         const data = search.videos[0];
