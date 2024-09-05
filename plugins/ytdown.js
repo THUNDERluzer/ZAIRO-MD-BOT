@@ -22,7 +22,7 @@ const voiceUrl = 'https://drive.google.com/uc?export=download&id=1_Pd4yQVfofr14x
 
 cmd({
     pattern: "song",
-    react:"🎧",
+    react: "🎧",
     desc: "Download songs",
     category: "download",
     filename: __filename
@@ -58,15 +58,15 @@ async (conn, mek, m, { from, q, reply }) => {
 🎼𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎`;
 
         // Send video details with thumbnail
-        await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
+        const sentMsg = await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
 
-        // Now wait for the reply
+        // Wait for reply with "yes"
         conn.ev.on('messages.upsert', async (msgUpdate) => {
             const msg = msgUpdate.messages[0];
 
-            // Check if the reply is to the same message and if the reply contains "yes"
+            // Check if the message is a reply to the thumbnail message and contains "yes"
             if (msg.message && msg.message.extendedTextMessage && 
-                msg.message.extendedTextMessage.contextInfo.stanzaId === mek.key.id && 
+                msg.message.extendedTextMessage.contextInfo.stanzaId === sentMsg.key.id &&
                 msg.message.extendedTextMessage.text.toLowerCase() === 'yes') {
                 
                 // If reply is "yes", start downloading
