@@ -32,28 +32,6 @@ async (conn, mek, m, { from, q, reply }) => {
         if (!q) {
             await conn.sendMessage(from, { audio: { url: voiceUrl }, mimetype: 'audio/mp4', ptt: true }, { quoted: mek });
             return;
-
-cmd({
-    pattern: "audio",
-    react:"⤵",
-    desc: "Download songs",
-    category: "download",
-    filename: __filename
-},
-async (conn, mek, m, { from, q, reply }) => {
-    try {
-        if (!q) {
-             // Download and send audio
-        let down = await fg.yta(url);
-        let downloadUrl = down.dl_url;
-        await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
-
-}
-
-
-
-
         }
 
         const search = await yts(q);
@@ -82,63 +60,42 @@ async (conn, mek, m, { from, q, reply }) => {
         // Send video details with thumbnail
         await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
 
-        
+        // Add buttons for the user to confirm or cancel the download
+        const buttons = [
+            { buttonId: 'confirmDownload', buttonText: { displayText: 'Yes' }, type: 1 },
+            { buttonId: 'cancelDownload', buttonText: { displayText: 'No' }, type: 1 }
+        ];
 
-    } catch (e) {
-        console.log(e);
-        reply(`Error: ${e.message}`);
-    }
-});
+        const buttonMessage = {
+            contentText: 'Do you want to download the audio?',
+            footerText: 'Confirm Download',
+            buttons: buttons,
+            headerType: 1
+        };
 
-//========= Video Download Command =========//
+        await conn.sendMessage(from, buttonMessage, { quoted: mek });
 
-cmd({
-    pattern: "video",
-    react:"🎧🎬",
-    desc: "Download videos",
-    category: "download",
-    filename: __filename
-},
-async (conn, mek, m, { from, q, reply }) => {
-    try {
-        if (!q) {
-            await conn.sendMessage(from, { audio: { url: voiceUrl }, mimetype: 'audio/mp4', ptt: true }, { quoted: mek });
-            return;
-        }
+        // Wait for button response to download audio
+        conn.ev.on('messages.upsert', async (message) => {
+            try {
+                const msg = message.messages[0];
 
-        const search = await yts(q);
-        const data = search.videos[0];
-        const url = data.url;
+                if (msg.message && msg.message.buttonsResponseMessage) {
+                    const buttonId = msg.message.buttonsResponseMessage.selectedButtonId;
 
-        let desc = `
- ~*𝙕𝘼𝙄𝙍𝙊 𝙈𝘿 𝘼𝙐𝘿𝙄𝙊 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿⤵⤵ 🎥*~
-
-
-> 🎶 *𝗧𝗶𝘁𝗹𝗲*: _${data.title}_
-
-> 👤 *𝗖𝗵𝗮𝗻𝗻𝗲𝗹*: _${data.author.name}_
-
-> 📝 *𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻*: _${data.description}_
-
-> ⏳ *𝗧𝗶𝗺𝗲*: _${data.timestamp}_
-
-> ⏱️ *𝗔𝗴𝗼*: _${data.ago}_
-
-> 👁️‍🗨️ *𝗩𝗶𝗲𝘄𝘀*: _${formatViews(data.views)}_
-
-> 🔗 *𝗟𝗶𝗻𝗸*: ${url}
-
-
-𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎`;
-
-        // Send video details with thumbnail
-        await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
-
-        // Download and send video
-        let down = await fg.ytv(url);
-        let downloadUrl = down.dl_url;
-        await conn.sendMessage(from, { video: { url: downloadUrl }, mimetype: "video/mp4" }, { quoted: mek });
-        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "video/mp4", fileName: `${data.title}.mp4`, caption: "🪴 *𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎*" }, { quoted: mek });
+                    if (buttonId === 'confirmDownload') {
+                        let down = await fg.yta(url);
+                        let downloadUrl = down.dl_url;
+                        await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
+                        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
+                    } else if (buttonId === 'cancelDownload') {
+                        reply("Download cancelled.");
+                    }
+                }
+            } catch (error) {
+                console.error("Error in message handling: ", error.message);
+            }
+        });
 
     } catch (e) {
         console.log(e);
