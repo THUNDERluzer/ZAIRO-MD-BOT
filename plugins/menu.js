@@ -16,23 +16,14 @@ cmd({
         const usedRAM = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2); // Used RAM in MB
         const freeRAM = (totalRAM - parseFloat(usedRAM)).toFixed(2); // Free RAM in MB
 
-        let status = `*✸𝗗𝗶𝗹𝗮𝗠𝗗✸*
-*𝚃𝚛𝚢𝚃𝚑𝚒𝚜⤵*
-
-.ai
-_ex-.aiHey_
-
-*SupportUs⤵*
-𝚆𝚑𝚊𝚝𝚜𝚊𝚙𝚙-https://whatsapp.com/channel/0029ValK0gn4SpkP6iaXoj2y
-𝚈𝚘𝚞𝚝𝚞𝚋𝚎-https://youtube.com/@dila_lk
-𝚆𝚎𝚋𝚂𝚒𝚝𝚎-dilalk.vercel.app
+        let status = `*✸𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℤ𝔸𝕀ℝ𝕆 𝕄𝔻 𝔹𝕆𝕋✸*
 
 *Uptime:* ${runtime(process.uptime())}
 *RAM Usage:* 
 - *Used*: ${usedRAM} MB
 - *Free*: ${freeRAM} MB
 - *Total*: ${totalRAM} MB
-*Owner:* ᴍʀ ᴅɪʟᴀ
+*Owner:* ®𝚅𝙸𝙼𝙰𝙼𝙾𝙳𝚂®
 
 *OWNERMENU⤵*
 _.getsession_
@@ -105,11 +96,10 @@ _.ai_
 _.gemini_
 _.gpt3_
 
-dilalk.vercel.app
-ᵐᵃᵈᵆ ᵇʸ ᵐʳᵈⁱˡᵃ ᵒᶠᶜ`
+*✸𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℤ𝔸𝕀ℝ𝕆 𝕄𝔻 𝔹𝕆𝕋✸*
 
         // URL of the image you want to include
-        const imageUrl = 'https://telegra.ph/file/cef9e06c2bb1935ac36ee.jpg'; // Replace with your actual image URL
+        const imageUrl = 'https://ibb.co/L86DZLX'; // Replace with your actual image URL
 
         // Send the image with the status as the caption
         await conn.sendMessage(from, {
