@@ -18,7 +18,6 @@ cmd({
         let status = `*✸𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℤ𝔸𝕀ℝ𝕆 𝕄𝔻 𝔹𝕆𝕋✸*
 
 
-
 𝙽𝙾𝚆 𝚄𝚂𝙴𝙳 𝚁𝙰𝙼: ${usedRAM} 𝙼𝙱
 𝚄𝙿 𝚃𝙸𝙼𝙴: ${runtime(process.uptime())}
 ®𝚅𝙸𝙼𝙰𝙼𝙾𝙳𝚂®`
@@ -32,9 +31,10 @@ cmd({
             caption: status
         }, { quoted: mek || null });
         
-   
+        // Reacting to the message after sending the status
+        await conn.sendMessage(from, { react: { text: '💥', key: mek.key } });
 
- } catch (e) {
+    } catch (e) {
         console.log(e)
         reply(`Error: ${e}`)
     }
