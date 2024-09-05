@@ -6,7 +6,7 @@ const {runtime} = require('../lib/functions')
 cmd({
     pattern: "menu",
     alias: ["panel","penal","list","allmenu"],
-    react: "🪴",
+    react: "🫰",
     desc: "Check menu all",
     category: "main",
     filename: __filename
@@ -17,7 +17,7 @@ cmd({
         const usedRAM = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2); // Used RAM in MB
         const freeRAM = (totalRAM - parseFloat(usedRAM)).toFixed(2); // Free RAM in MB
 
-        let status = `*✸𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℤ𝔸𝕀ℝ𝕆 𝕄𝔻 𝔹𝕆𝕋✸*
+        let status = `*✸𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 𝕄𝔻 𝔹𝕆𝕋✸*
 
 > *Uptime:* ${runtime(process.uptime())}
 
@@ -101,7 +101,7 @@ _.ai_
 _.gemini_
 _.gpt3_
 
-*✸ℤ𝔸𝕀ℝ𝕆 𝕄𝔻 𝔹𝕆𝕋✸*`
+*✸ 𝕄𝔻 𝔹𝕆𝕋✸*`
 
         // URL of the image you want to include
         const imageUrl = 'https://ibb.co/L86DZLX'; // Replace with your actual image URL
