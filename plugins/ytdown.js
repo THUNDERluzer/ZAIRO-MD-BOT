@@ -39,7 +39,7 @@ async (conn, mek, m, { from, q, reply }) => {
         const url = data.url;
 
         let desc = `
-> *𝙕𝘼𝙄𝙍𝙊 𝙈𝘿 𝘼𝙐𝘿𝙄𝙊 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿⤵⤵ 🎧*
+ ~*𝙕𝘼𝙄𝙍𝙊 𝙈𝘿 𝘼𝙐𝘿𝙄𝙊 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿⤵⤵ 🎧*~
 
 > 🎶 *𝗧𝗶𝘁𝗹𝗲*: _${data.title}_
 
@@ -64,7 +64,7 @@ async (conn, mek, m, { from, q, reply }) => {
         let down = await fg.yta(url);
         let downloadUrl = down.dl_url;
         await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "💞 *𝙕𝘼𝙄𝙍𝙊 𝙈𝘿* 💞" }, { quoted: mek });
+        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
 
     } catch (e) {
         console.log(e);
@@ -93,7 +93,7 @@ async (conn, mek, m, { from, q, reply }) => {
         const url = data.url;
 
         let desc = `
-*𝗗𝗶𝗹𝗮𝗠𝗗 𝗬𝗼𝘂𝘁𝘂𝗯𝗲 𝗩𝗶𝗱𝗲𝗼 𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱𝗲𝗿 🎥*
+ ~*𝙕𝘼𝙄𝙍𝙊 𝙈𝘿 𝘼𝙐𝘿𝙄𝙊 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿⤵⤵ 🎥*~
 
 
 > 🎶 *𝗧𝗶𝘁𝗹𝗲*: _${data.title}_
