@@ -57,33 +57,35 @@ async (conn, mek, m, { from, q, reply }) => {
 
 🎼𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎`;
 
-async (conn, mek, m, { from, q, reply }) => {
-    try {
-    
-    cmd({
+cmd({
     pattern: "audio",
     react:"🎧",
     desc: "Download songs",
-    category: "download1",
+    category: "download",
     filename: __filename
-}, async (conn, mek, m, { from, q, reply }) => {
+},
+async (conn, mek, m, { from, q, reply }) => {
     try {
-            // Send video details with thumbnail
+        if (!q) {
+                    // Send video details with thumbnail
         await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
 
         // Download and send audio
         let down = await fg.yta(url);
         let downloadUrl = down.dl_url;
         await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-      }
-        };
+            return;
+        }
 
+
+} catch (e) {
+        console.log(e);
+        reply(`Error: ${e.message}`);
     }
-        };
+});
 
 
-        
-        
+
         await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: `${data.title}.mp3`, caption: "𝘿𝙀𝙑𝙀𝙇𝙊𝙋𝙀𝙍 𝘽𝙔 𝙑𝙄𝙈𝘼𝙈𝙊𝘿𝙎" }, { quoted: mek });
 
     } catch (e) {
@@ -91,4 +93,9 @@ async (conn, mek, m, { from, q, reply }) => {
         reply(`Error: ${e.message}`);
     }
 });
+
+
+
+
+
 
