@@ -26,7 +26,7 @@ cmd({
 
 > *Total*: ${totalRAM} MB
 
-> *Owner:* ®𝚅𝙸𝙼𝙰𝙼𝙾𝙳𝚂®
+> *Owner:* 𝚅𝙸𝙼𝙰𝙼𝙾𝙳𝚂
 
 
 *OWNERMENU⤵*
@@ -100,7 +100,7 @@ _.ai_
 _.gemini_
 _.gpt3_
 
-*✸𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℤ𝔸𝕀ℝ𝕆 𝕄𝔻 𝔹𝕆𝕋✸*'
+*✸ℤ𝔸𝕀ℝ𝕆 𝕄𝔻 𝔹𝕆𝕋✸*`
 
         // URL of the image you want to include
         const imageUrl = 'https://ibb.co/L86DZLX'; // Replace with your actual image URL
